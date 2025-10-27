@@ -3,330 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pentagon Space - Learning Repository</title>
+    <title>Repository Files</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            font-family: Arial, sans-serif;
             padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
         }
-
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-
-        .content {
-            padding: 40px;
-        }
-
-        .search-box {
-            margin-bottom: 30px;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 15px 20px;
-            font-size: 1em;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            transition: border-color 0.3s;
-        }
-
-        .search-box input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .folder-section {
-            margin-bottom: 40px;
-        }
-
-        .folder-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 20px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 10px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .folder-header:hover {
-            transform: translateX(5px);
-        }
-
-        .folder-icon {
-            font-size: 2em;
-        }
-
-        .folder-name {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .file-count {
-            margin-left: auto;
-            background: #667eea;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-        }
-
-        .files-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 15px;
-            padding-left: 20px;
-        }
-
-        .file-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 15px 20px;
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            text-decoration: none;
-            color: #333;
-            transition: all 0.3s;
-        }
-
-        .file-item:hover {
-            border-color: #667eea;
-            background: #f8f9ff;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
-        }
-
-        .file-icon {
-            font-size: 1.5em;
-        }
-
-        .file-name {
-            font-weight: 500;
-            flex: 1;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 1em;
-            opacity: 0.9;
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 40px;
-            color: #999;
-            font-size: 1.2em;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-            font-size: 1.2em;
-            color: #667eea;
-        }
+        h1 { margin-bottom: 20px; }
+        ul { list-style: none; padding: 0; }
+        li { margin: 5px 0; }
+        a { color: blue; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .folder { font-weight: bold; margin-top: 15px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🚀 Pentagon Space Learning Repository</h1>
-            <p>Fullstack Web Development Journey</p>
-        </div>
-
-        <div class="content">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="🔍 Search for files...">
-            </div>
-
-            <div class="stats" id="stats"></div>
-
-            <div id="fileStructure" class="loading">
-                📂 Loading repository structure...
-            </div>
-        </div>
-    </div>
+    <h1>Pentagon Space - Repository Files</h1>
+    <div id="content">Loading files...</div>
 
     <script>
-        // Define your repository structure here
-        const repoStructure = {
-            rootFiles: [
-                '1stclass.html',
-                'challenge1.html',
-                'challenge2.html',
-                'challenge3.html',
-                'challenge4.html',
-                'challenge5.html',
-                'challenge6.html'
-            ],
-            folders: {
-                // Example structure - add your folders here
-                // 'basics': ['intro.html', 'setup.html'],
-                // 'css-lessons': ['flexbox.html', 'grid.html'],
-                // 'javascript': ['variables.html', 'functions.html']
+        async function fetchGitHubStructure() {
+            const content = document.getElementById('content');
+            
+            // Get the GitHub repository info from the URL
+            // Example: https://username.github.io/repo-name/
+            const pathParts = window.location.pathname.split('/').filter(p => p);
+            
+            if (pathParts.length === 0) {
+                showManualStructure();
+                return;
             }
-        };
 
-        function renderStructure(structure, searchTerm = '') {
-            const container = document.getElementById('fileStructure');
+            const username = window.location.hostname.split('.')[0];
+            const repo = pathParts[0] || 'repository';
+            
+            try {
+                const response = await fetch(`https://api.github.com/repos/${username}/${repo}/git/trees/main?recursive=1`);
+                const data = await response.json();
+                
+                if (data.tree) {
+                    displayStructure(data.tree);
+                } else {
+                    showManualStructure();
+                }
+            } catch (error) {
+                showManualStructure();
+            }
+        }
+
+        function displayStructure(tree) {
+            const content = document.getElementById('content');
+            const folders = {};
+            const rootFiles = [];
+
+            // Organize files by folder
+            tree.forEach(item => {
+                if (item.type === 'blob' && item.path.endsWith('.html')) {
+                    const parts = item.path.split('/');
+                    if (parts.length === 1) {
+                        rootFiles.push(item.path);
+                    } else {
+                        const folder = parts[0];
+                        if (!folders[folder]) {
+                            folders[folder] = [];
+                        }
+                        folders[folder].push(parts.slice(1).join('/'));
+                    }
+                }
+            });
+
             let html = '';
-            let totalFiles = 0;
-            let folderCount = 0;
 
-            const filterFiles = (files) => {
-                if (!searchTerm) return files;
-                return files.filter(file => 
-                    file.toLowerCase().includes(searchTerm.toLowerCase())
-                );
-            };
-
-            // Root Files
-            const filteredRootFiles = filterFiles(structure.rootFiles);
-            if (filteredRootFiles.length > 0) {
-                html += `
-                    <div class="folder-section">
-                        <div class="folder-header">
-                            <span class="folder-icon">📄</span>
-                            <span class="folder-name">Root Files</span>
-                            <span class="file-count">${filteredRootFiles.length} files</span>
-                        </div>
-                        <div class="files-list">
-                `;
-
-                filteredRootFiles.forEach(file => {
-                    html += `
-                        <a href="./${file}" class="file-item">
-                            <span class="file-icon">📝</span>
-                            <span class="file-name">${file}</span>
-                        </a>
-                    `;
-                    totalFiles++;
+            // Root files
+            if (rootFiles.length > 0) {
+                html += '<h2>Root Files</h2><ul>';
+                rootFiles.forEach(file => {
+                    html += `<li><a href="./${file}">${file}</a></li>`;
                 });
-
-                html += `
-                        </div>
-                    </div>
-                `;
+                html += '</ul>';
             }
 
             // Folders
-            for (const [folderName, files] of Object.entries(structure.folders)) {
-                const filteredFiles = filterFiles(files);
-                if (filteredFiles.length > 0) {
-                    folderCount++;
-                    html += `
-                        <div class="folder-section">
-                            <div class="folder-header">
-                                <span class="folder-icon">📁</span>
-                                <span class="folder-name">${folderName}</span>
-                                <span class="file-count">${filteredFiles.length} files</span>
-                            </div>
-                            <div class="files-list">
-                    `;
+            Object.keys(folders).sort().forEach(folder => {
+                html += `<h2 class="folder">📁 ${folder}</h2><ul>`;
+                folders[folder].forEach(file => {
+                    html += `<li><a href="./${folder}/${file}">${file}</a></li>`;
+                });
+                html += '</ul>';
+            });
 
-                    filteredFiles.forEach(file => {
-                        html += `
-                            <a href="./${folderName}/${file}" class="file-item">
-                                <span class="file-icon">📝</span>
-                                <span class="file-name">${file}</span>
-                            </a>
-                        `;
-                        totalFiles++;
-                    });
-
-                    html += `
-                            </div>
-                        </div>
-                    `;
-                }
-            }
-
-            if (html === '') {
-                html = '<div class="no-results">No files found matching your search.</div>';
-            }
-
-            container.innerHTML = html;
-
-            // Update stats
-            const statsHtml = `
-                <div class="stat-card">
-                    <div class="stat-number">${totalFiles}</div>
-                    <div class="stat-label">Total Files</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">${folderCount + (filteredRootFiles.length > 0 ? 1 : 0)}</div>
-                    <div class="stat-label">Sections</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">${Object.keys(structure.folders).length}</div>
-                    <div class="stat-label">Folders</div>
-                </div>
-            `;
-            document.getElementById('stats').innerHTML = statsHtml;
+            content.innerHTML = html || '<p>No HTML files found.</p>';
         }
 
-        // Search functionality
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            renderStructure(repoStructure, e.target.value);
-        });
+        function showManualStructure() {
+            // Manual structure - update this with your files
+            const structure = {
+                rootFiles: [
+                    '1stclass.html',
+                    'challenge1.html',
+                    'challenge2.html',
+                    'challenge3.html',
+                    'challenge4.html',
+                    'challenge5.html',
+                    'challenge6.html'
+                ],
+                folders: {
+                    // Add your folders here like:
+                    // 'folder-name': ['file1.html', 'file2.html']
+                }
+            };
 
-        // Initial render
-        renderStructure(repoStructure);
+            const content = document.getElementById('content');
+            let html = '';
+
+            if (structure.rootFiles.length > 0) {
+                html += '<h2>Root Files</h2><ul>';
+                structure.rootFiles.forEach(file => {
+                    html += `<li><a href="./${file}">${file}</a></li>`;
+                });
+                html += '</ul>';
+            }
+
+            Object.keys(structure.folders).forEach(folder => {
+                html += `<h2 class="folder">📁 ${folder}</h2><ul>`;
+                structure.folders[folder].forEach(file => {
+                    html += `<li><a href="./${folder}/${file}">${file}</a></li>`;
+                });
+                html += '</ul>';
+            });
+
+            content.innerHTML = html;
+        }
+
+        // Try to fetch from GitHub, fallback to manual structure
+        fetchGitHubStructure();
     </script>
 </body>
 </html>
