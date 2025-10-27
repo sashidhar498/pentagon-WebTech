@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repository Files</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 { margin-bottom: 20px; }
+        ul { list-style: none; padding: 0; }
+        li { margin: 5px 0; }
+        a { color: blue; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .folder { font-weight: bold; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <h1>Pentagon Space - Repository Files</h1>
+    <div id="content">Loading files...</div>
+
+    <script>
+        async function fetchGitHubStructure() {
+            const content = document.getElementById('content');
+            
+            // Get the GitHub repository info from the URL
+            // Example: https://username.github.io/repo-name/
+            const pathParts = window.location.pathname.split('/').filter(p => p);
+            
+            if (pathParts.length === 0) {
+                showManualStructure();
+                return;
+            }
+
+            const username = window.location.hostname.split('.')[0];
+            const repo = pathParts[0] || 'repository';
+            
+            try {
+                const response = await fetch(`https://api.github.com/repos/${username}/${repo}/git/trees/main?recursive=1`);
+                const data = await response.json();
+                
+                if (data.tree) {
+                    displayStructure(data.tree);
+                } else {
+                    showManualStructure();
+                }
+            } catch (error) {
+                showManualStructure();
+            }
+        }
+
+        function displayStructure(tree) {
+            const content = document.getElementById('content');
+            const folders = {};
+            const rootFiles = [];
+
+            // Organize files by folder
+            tree.forEach(item => {
+                if (item.type === 'blob' && item.path.endsWith('.html')) {
+                    const parts = item.path.split('/');
+                    if (parts.length === 1) {
+                        rootFiles.push(item.path);
+                    } else {
+                        const folder = parts[0];
+                        if (!folders[folder]) {
+                            folders[folder] = [];
+                        }
+                        folders[folder].push(parts.slice(1).join('/'));
+                    }
+                }
+            });
+
+            let html = '';
+
+            // Root files
+            if (rootFiles.length > 0) {
+                html += '<h2>Root Files</h2><ul>';
+                rootFiles.forEach(file => {
+                    html += `<li><a href="./${file}">${file}</a></li>`;
+                });
+                html += '</ul>';
+            }
+
+            // Folders
+            Object.keys(folders).sort().forEach(folder => {
+                html += `<h2 class="folder">📁 ${folder}</h2><ul>`;
+                folders[folder].forEach(file => {
+                    html += `<li><a href="./${folder}/${file}">${file}</a></li>`;
+                });
+                html += '</ul>';
+            });
+
+            content.innerHTML = html || '<p>No HTML files found.</p>';
+        }
+
+        function showManualStructure() {
+            // Manual structure - update this with your files
+            const structure = {
+                rootFiles: [
+                    '1stclass.html',
+                    'challenge1.html',
+                    'challenge2.html',
+                    'challenge3.html',
+                    'challenge4.html',
+                    'challenge5.html',
+                    'challenge6.html'
+                ],
+                folders: {
+                    // Add your folders here like:
+                    // 'folder-name': ['file1.html', 'file2.html']
+                }
+            };
+
+            const content = document.getElementById('content');
+            let html = '';
+
+            if (structure.rootFiles.length > 0) {
+                html += '<h2>Root Files</h2><ul>';
+                structure.rootFiles.forEach(file => {
+                    html += `<li><a href="./${file}">${file}</a></li>`;
+                });
+                html += '</ul>';
+            }
+
+            Object.keys(structure.folders).forEach(folder => {
+                html += `<h2 class="folder">📁 ${folder}</h2><ul>`;
+                structure.folders[folder].forEach(file => {
+                    html += `<li><a href="./${folder}/${file}">${file}</a></li>`;
+                });
+                html += '</ul>';
+            });
+
+            content.innerHTML = html;
+        }
+
+        // Try to fetch from GitHub, fallback to manual structure
+        fetchGitHubStructure();
+    </script>
+</body>
+</html>
